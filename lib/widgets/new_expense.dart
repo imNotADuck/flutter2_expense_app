@@ -136,6 +136,7 @@ class _NewExpenseState extends State<NewExpense> {
             ),
           ],
         ),
+        const SizedBox(height: 30,),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -146,6 +147,7 @@ class _NewExpenseState extends State<NewExpense> {
                         value: item,
                         child: Text(
                           item.name.toUpperCase(),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
                     )
@@ -157,11 +159,17 @@ class _NewExpenseState extends State<NewExpense> {
                     print('expense value now: $_selectedExpense');
                   });
                 }),
+            const SizedBox(
+              width: 30,
+            ),
             ElevatedButton(
               onPressed: () {
                 _validateFormAndSubmit();
               },
               child: const Text('Save'),
+            ),
+            const SizedBox(
+              width: 10,
             ),
             ElevatedButton(
               onPressed: () {
