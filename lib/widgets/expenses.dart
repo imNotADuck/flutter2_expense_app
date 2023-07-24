@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter2_expense_app/widgets/chart/chart.dart';
 import 'package:flutter2_expense_app/widgets/expense_list.dart';
 import 'package:flutter2_expense_app/widgets/new_expense.dart';
 
@@ -107,7 +108,9 @@ class _ExpensesState extends State<Expenses> {
           ? placeHolder
           : Column(
               children: [
-                const Text('chart goes here'),
+                Chart(
+                  expenses: _expenseList,
+                ),
                 Expanded(
                   child: ExpenseList(
                     expenses: _expenseList,

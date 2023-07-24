@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:intl/intl.dart';
+
 const uuid = Uuid();
 
 final formatter = DateFormat.yMd();
 
 enum ExpenseEnum {
-   life, food, leisure, work,
+  life,
+  food,
+  leisure,
+  work,
 }
 
 const categoryIcon = {
@@ -35,4 +39,27 @@ class Expense {
   }
 }
 
+class ExpenseBucket {
+  ExpenseBucket({
+    required this.expenses,
+    required this.category,
+  });
 
+  ExpenseBucket.forCategory(List<Expense> allExpesense, this.category)
+      : expenses = allExpesense
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final List<Expense> expenses;
+  final ExpenseEnum category;
+
+  double get expensesSum {
+    double sum = 0;
+
+    for (final expense in expenses) {
+      sum += expense.ammount;
+    }
+
+    return sum;
+  }
+}

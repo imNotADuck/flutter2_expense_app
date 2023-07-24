@@ -93,6 +93,7 @@ class _NewExpenseState extends State<NewExpense> {
       padding: const EdgeInsets.all(16),
       child: Column(children: [
         TextField(
+          style: Theme.of(context).textTheme.bodyMedium,
           decoration: const InputDecoration(
             label: Text("Title"),
           ),
@@ -104,6 +105,7 @@ class _NewExpenseState extends State<NewExpense> {
           children: [
             Expanded(
               child: TextField(
+                style: Theme.of(context).textTheme.bodyMedium,
                 decoration: const InputDecoration(
                   label: Text("Ammount"),
                   prefixText: "\$",
