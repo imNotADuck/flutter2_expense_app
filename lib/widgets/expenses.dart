@@ -15,6 +15,8 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   void _openAddExpenseItem() {
     showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(
         onSubmittedNewItem: _addNewExpenseItem,
@@ -91,7 +93,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    Widget placeHolder = const Center(
+    var width = MediaQuery.of(context).size.width;
+
+    Widget emptyExpenseText = const Center(
       child: Text('Start adding some...'),
     );
     return Scaffold(
@@ -104,21 +108,35 @@ class _ExpensesState extends State<Expenses> {
           )
         ],
       ),
-      body: _expenseList.isEmpty
-          ? placeHolder
-          : Column(
-              children: [
-                Chart(
-                  expenses: _expenseList,
+      body: width < 700
+              ? Column(
+                  children: [
+                    Chart(
+                      expenses: _expenseList,
+                    ),
+                    Expanded(
+                      child: ExpenseList(
+                        expenses: _expenseList,
+                        onRemoveExpense: _onRemoveExpenseItem,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      child: Chart(
+                        expenses: _expenseList,
+                      ),
+                    ),
+                    Expanded(
+                      child: ExpenseList(
+                        expenses: _expenseList,
+                        onRemoveExpense: _onRemoveExpenseItem,
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ExpenseList(
-                    expenses: _expenseList,
-                    onRemoveExpense: _onRemoveExpenseItem,
-                  ),
-                ),
-              ],
-            ),
     );
   }
 }
