@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter2_expense_app/models/expense.dart';
@@ -50,24 +47,14 @@ class _NewExpenseState extends State<NewExpense> {
     super.dispose();
   }
 
-  void _showDialogBasedOnPlatform() {
-    if (Platform.isIOS) {
-      showCupertinoDialog(
-        context: context,
-        builder: (ctx) => CupertinoAlertDialog(
-          title: const Text('Invalid input'),
-          content: const Text('No field should be left empty!'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
-            )
-          ],
-        ),
-      );
-    } else {
+  void _validateFormAndSubmit() {
+    final inputValue = double.tryParse(_valueController.text);
+
+    if (_titleController.text.trim().isEmpty ||
+        _selectedDate == null ||
+        _selectedExpense == null ||
+        inputValue == null ||
+        inputValue <= 0) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -83,18 +70,7 @@ class _NewExpenseState extends State<NewExpense> {
           ],
         ),
       );
-    }
-  }
 
-  void _validateFormAndSubmit() {
-    final inputValue = double.tryParse(_valueController.text);
-
-    if (_titleController.text.trim().isEmpty ||
-        _selectedDate == null ||
-        _selectedExpense == null ||
-        inputValue == null ||
-        inputValue <= 0) {
-      _showDialogBasedOnPlatform();
       return;
     }
 
